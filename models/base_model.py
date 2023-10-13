@@ -9,15 +9,19 @@ class BaseModel():
     """
     def __init__(self, *args, **kwargs):
         """BaseClass Instance initiator"""
-        if not kwargs:
+        if kwargs is not None and len(kwargs) != 0:
+            if '__class__' in kwargs:
+                del kwargs["__class__"]
+            self.id = kwargs["id"]
+            kwargs["created_at"] = datetime.fromisoformat(kwargs["created_at"])
+            kwargs["updated_at"] = datetime.fromisoformat(kwargs["updated_at"])
+            self.__dict__.update(kwargs)
+        else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-        else:
-            kwargs = kwargs.pop("__class__")
-#            self.id = kwargs["id"]
-            self.created_at = datetime.fromisoformat(kwrags["created_at"])
-            self.updated_at = datetime.fromisoformat(kwrags["updated_at"])
+            from .__init__ import storage
+            storage.new(self)
             
 
     def __str__(self):
@@ -28,6 +32,8 @@ class BaseModel():
     def save(self):
         """Update the updated_at attribute"""
         self.updated_at = datetime.now()
+        from .__init__ import storage
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of
