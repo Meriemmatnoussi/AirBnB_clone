@@ -21,7 +21,7 @@ class BaseModel():
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            from .__init__ import storage
+            from . import storage
             storage.new(self)
 
     def __str__(self):
@@ -32,7 +32,7 @@ class BaseModel():
     def save(self):
         """Update the updated_at attribute"""
         self.updated_at = datetime.now()
-        from .__init__ import storage
+        from . import storage
         storage.save()
 
     def to_dict(self):
