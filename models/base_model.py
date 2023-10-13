@@ -12,6 +12,7 @@ class BaseModel():
         if kwargs is not None and len(kwargs) != 0:
             if '__class__' in kwargs:
                 del kwargs["__class__"]
+
             self.id = kwargs["id"]
             kwargs["created_at"] = datetime.fromisoformat(kwargs["created_at"])
             kwargs["updated_at"] = datetime.fromisoformat(kwargs["updated_at"])
@@ -22,7 +23,6 @@ class BaseModel():
             self.updated_at = datetime.now()
             from .__init__ import storage
             storage.new(self)
-            
 
     def __str__(self):
         """Return the class string representation"""
