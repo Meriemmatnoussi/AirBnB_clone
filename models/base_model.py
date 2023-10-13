@@ -7,11 +7,18 @@ from datetime import datetime
 class BaseModel():
     """BaseModel class
     """
-    def __init__(self, id=None, created_at=None, updated_at=None):
+    def __init__(self, *args, **kwargs):
         """BaseClass Instance initiator"""
-        self.id = uuid4()
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if not kwargs:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+        else:
+            kwargs = kwargs.pop("__class__")
+#            self.id = kwargs["id"]
+            self.created_at = datetime.fromisoformat(kwrags["created_at"])
+            self.updated_at = datetime.fromisoformat(kwrags["updated_at"])
+            
 
     def __str__(self):
         """Return the class string representation"""
@@ -27,9 +34,7 @@ class BaseModel():
         __dict__ of the instance
         """
         obj_dict = self.__dict__
-        ftime = "%Y-%m-%dT%H:%M:%S.%f"
-        obj_dict["created_at"] = obj_dict["created_at"].strftime(ftime)
-        obj_dict["updated_at"] = obj_dict["updated_at"].strftime(ftime)
-        obj_dict["id"] = str(instance_dict["id"])
+        obj_dict["created_at"] = obj_dict["created_at"].isoformat()
+        obj_dict["updated_at"] = obj_dict["updated_at"].isoformat()
         obj_dict["__class__"] = type(self).__name__
-        return self.__dict__
+        return obj_dict
