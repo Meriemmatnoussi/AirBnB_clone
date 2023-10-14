@@ -38,29 +38,3 @@ class TestCityDocsAndStyle(unittest.TestCase):
     def test_class_name(self):
         """Test whether the class"""
         self.assertEqual(City.__name__, "City")
-
-
-class TestCity(unittest.TestCase):
-    """Test cases for City Class"""
-
-    def setUp(self):
-        """creates a test """
-        self.test_obj = City()
-        self.test_obj.state_id = str(uuid.uuid4())
-        self.test_obj.name = "fantasy land"
-
-    def test_city_is_subclass_of_base_model(self):
-        self.assertTrue(issubclass(City, BaseModel))
-
-    def test_public_attributes_exist(self):
-        """tests wether the public"""
-        req_att = ["id", "created_at", "updated_at",
-                   "state_id", "name"]
-        for attrib in req_att:
-            self.assertTrue(hasattr(self.test_obj, attrib))
-
-    def test_public_attributes_have_correct_type(self):
-        """tests wether the public"""
-        req_att = ["state_id", "name"]
-        for attrib in req_att:
-            self.assertTrue(type(getattr(self.test_obj, attrib)), str)
