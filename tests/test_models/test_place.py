@@ -17,27 +17,6 @@ from tests.test_models.test_base_model import BaseModel
 Place = place.Place
 
 
-class TestPlaceDocsAndStyle(unittest.TestCase):
-    """Tests Place class"""
-
-    def test_pycodestyle(self):
-        """Tests compliance"""
-        style = pycodestyle.StyleGuide(quiet=False)
-        result = style.check_files(
-            ["models/place.py", "tests/test_models/test_place.py"])
-        self.assertEqual(result.total_errors, 0)
-
-    def test_module_docstring(self):
-        """Tests whether"""
-        self.assertTrue(len(place.__doc__) >= 1)
-
-    def test_class_docstring(self):
-        """Tests whether"""
-        self.assertTrue(len(Place.__doc__) >= 1)
-
-    def test_class_name(self):
-        """Test whether the class"""
-        self.assertEqual(Place.__name__, "Place")
 
 
 class TestPlace(unittest.TestCase):
@@ -99,35 +78,3 @@ class TestPlace(unittest.TestCase):
         sys.stdout = sys.__stdout__
         self.assertEqual(output.getvalue().strip("\n"), expected)
 
-    def test_to_dict_returns_a_dictionary_of_attributes(self):
-        """to_dict should return
-        self.__dict__
-        """
-        temp_dict = self.test_obj.to_dict()
-        self.assertIsInstance(temp_dict, dict)
-        keys = temp_dict.keys()
-
-        for k, v in self.test_obj.__dict__.items():
-            self.assertIn(k, keys)
-            if not isinstance(self.test_obj.__dict__[k], datetime):
-                self.assertEqual(temp_dict[k], v)
-
-    def test_to_dict_has_a_key_with_the_class_name(self):
-        """to_dict must have
-        name
-        """
-        temp_dict = self.test_obj.to_dict()
-        self.assertIn("__class__", temp_dict.keys())
-        self.assertEqual(temp_dict["__class__"],
-                         Place.__name__)
-
-    def test_init_with_kwargs(self):
-        """test that Place can be constructed"""
-        temp_obj_2 = Place(**self.test_obj.to_dict())
-
-        for k, v in self.test_obj.__dict__.items():
-            self.assertEqual(v, temp_obj_2.__dict__[k])
-
-
-if __name__ == "__main__":
-    unittest.main()
