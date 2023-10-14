@@ -3,13 +3,15 @@
 Class User that inherits from BaseModel
 """
 
-from .base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class User(BaseModel):
     """
     Blueprint for a User object
     """
+
+
     email = ""
     password = ""
     first_name = ""
