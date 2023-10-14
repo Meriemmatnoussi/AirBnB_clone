@@ -2,7 +2,7 @@
 """"FileStorage engine Module"""
 import json
 import os
-from models.user import user
+from models.user import User
 from models.base_model import BaseModel
 
 
@@ -37,5 +37,7 @@ class FileStorage():
             with open(FileStorage.__file_path) as file:
                 objs_dict = json.load(file)
                 for key, serialized_obj in objs_dict.items():
+                    from models.base_model import BaseModel
+                    from models.user import User
                     obj = BaseModel(**serialized_obj)
                     FileStorage.__objects[key] = obj
