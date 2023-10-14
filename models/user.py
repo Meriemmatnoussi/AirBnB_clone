@@ -10,7 +10,9 @@ class User(BaseModel):
     """
     Blueprint for a User object
     """
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+    def __init__(self):
+        super().__init__()
+        email = ""
+        password = ""
+        first_name = ""
+        last_name = ""
