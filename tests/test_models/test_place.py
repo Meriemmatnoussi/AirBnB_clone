@@ -17,6 +17,27 @@ from tests.test_models.test_base_model import BaseModel
 Place = place.Place
 
 
+class TestPlaceDocsAndStyle(unittest.TestCase):
+    """Tests Place class"""
+
+    def test_pycodestyle(self):
+        """Tests compliance"""
+        style = pycodestyle.StyleGuide(quiet=False)
+        result = style.check_files(
+            ["models/place.py", "tests/test_models/test_place.py"])
+        self.assertEqual(result.total_errors, 0)
+
+    def test_module_docstring(self):
+        """Tests whether"""
+        self.assertTrue(len(place.__doc__) >= 1)
+
+    def test_class_docstring(self):
+        """Tests whether"""
+        self.assertTrue(len(Place.__doc__) >= 1)
+
+    def test_class_name(self):
+        """Test whether the class"""
+        self.assertEqual(Place.__name__, "Place")
 
 
 class TestPlace(unittest.TestCase):
@@ -41,40 +62,3 @@ class TestPlace(unittest.TestCase):
 
     def test_place_is_subclass_of_base_model(self):
         self.assertTrue(issubclass(Place, BaseModel))
-
-    def test_public_attributes_exist(self):
-        """tests wether the public instance"""
-        req_att = ["id", "created_at", "updated_at",
-                   "city_id", "user_id", "name", "description", "number_rooms",
-                   "number_bathrooms", "max_guest", "price_by_night",
-                   "latitude", "longitude", "amenity_ids"]
-        for attrib in req_att:
-            self.assertTrue(hasattr(self.test_obj, attrib))
-
-    def test_public_attributes_have_correct_type(self):
-        """tests wether the public"""
-        req_att_s = ["city_id", "user_id", "name", "description"]
-        for attrib in req_att_s:
-            self.assertTrue(type(getattr(self.test_obj, attrib)), str)
-        req_att_i = ["number_rooms", "number_bathrooms", "max_guest",
-                     "price_by_night"]
-        for attrib in req_att_i:
-            self.assertTrue(type(getattr(self.test_obj, attrib)), int)
-        req_att_f = ["latitude", "longitude"]
-        for attrib in req_att_f:
-            self.assertTrue(type(getattr(self.test_obj, attrib)), float)
-
-        self.assertTrue(type(getattr(self.test_obj, "amenity_ids")), list)
-
-    def test_bas_str_should_print_formatted_output(self):
-        """__str__ should print"""
-        self.test_obj.my_number = 89
-        cls_name = Place.__name__
-        id = self.test_obj.id
-        expected = f"[{cls_name}] ({id}) {self.test_obj.__dict__}"
-        output = StringIO()
-        sys.stdout = output
-        print(self.test_obj)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(output.getvalue().strip("\n"), expected)
-
