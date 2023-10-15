@@ -30,3 +30,14 @@ class TestFileStorage(unittest.TestCase):
         fs.new(bm)
         key = "BaseModel.{}".format(bm.id)
         self.assertTrue(key in fs.all())
+
+    def test_save(self):
+        """Test save() method"""
+        fs = FileStorage()
+        bm = BaseModel()
+
+        bm.name = "Test object"
+        fs.save()
+        all_objs = fs.all()
+        self.assertIn("BaseModel.{}".format(bm.id,), all_objs)
+        self.assertEqual(all_objs["BaseModel.{}".format(bm.id)].name, "Test object")
