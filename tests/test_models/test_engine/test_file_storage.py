@@ -40,4 +40,5 @@ class TestFileStorage(unittest.TestCase):
         fs.save()
         all_objs = fs.all()
         self.assertIn("BaseModel.{}".format(bm.id,), all_objs)
-        self.assertEqual(all_objs["BaseModel.{}".format(bm.id)].name, "Test object")
+        obj = all_objs["BaseModel.{}".format(bm.id)].name
+        self.assertEqual(obj, "Test object")
