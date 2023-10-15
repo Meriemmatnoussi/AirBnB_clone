@@ -5,7 +5,8 @@ from models.base_model import BaseModel
 from models import storage
 from models.user import User
 
-classes = ["BaseModel", "User"]
+classes = ["BaseModel", "User", "State", "City", "Place", "Amenity", "Review"]
+
 
 class HBNBCommand(cmd.Cmd):
     """Project Console class"""
@@ -101,8 +102,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """Updates an instance based on the class name and id by adding or
-        updating attribute (save the change into the JSON file). 
-        Ex: 
+        updating attribute (save the change into the JSON file).
+        Ex:
             $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         if not line:
@@ -110,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = line.split()
         if args[0] not in classes:
-                print("** class doesn't exist **")
+            print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
         else:
@@ -130,6 +131,7 @@ class HBNBCommand(cmd.Cmd):
                 attr_value = args[3]
                 setattr(obj, attr_name, attr_value)
                 obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

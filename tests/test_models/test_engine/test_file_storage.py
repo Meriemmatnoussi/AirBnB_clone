@@ -11,7 +11,7 @@ class TestFileStorage(unittest.TestCase):
     def test_private_class_attr(self):
         """Test if the class attributes are private"""
         fs = FileStorage()
-        
+
         with self.assertRaises(AttributeError):
             fs.__file_path
         with self.assertRaises(AttributeError):
@@ -30,4 +30,3 @@ class TestFileStorage(unittest.TestCase):
         fs.new(bm)
         key = "BaseModel.{}".format(bm.id)
         self.assertTrue(key in fs.all())
-
