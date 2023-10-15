@@ -42,3 +42,19 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("BaseModel.{}".format(bm.id,), all_objs)
         obj = all_objs["BaseModel.{}".format(bm.id)].name
         self.assertEqual(obj, "Test object")
+
+    def test_loading_existing_objects(self):
+        """Test Loading Existing Object"""
+        obj = BaseModel()
+        fs = FileStorage()
+        obj.name = "Test Object"
+
+        fs.new(obj)
+        fs.save()
+
+        fs.__objects = {}
+        fs.reload()
+
+        loaded_obj = fs.all()["BaseModel." + obj.id]
+        self.assertEqual(loaded_obj.id, obj.id)
+        self.assertEqual(loaded_obj.name, "Test Object")
