@@ -10,8 +10,6 @@ class User(BaseModel):
     """
     Blueprint for a User object
     """
-
-
     email = ""
     password = ""
     first_name = ""
