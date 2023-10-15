@@ -5,7 +5,7 @@ from models.base_model import BaseModel
 from models import storage
 from models.user import User
 
-classes = ["BaseModel", "User"]
+classes = ["BaseModel", "User", "State", "City"]
 
 class HBNBCommand(cmd.Cmd):
     """Project Console class"""
