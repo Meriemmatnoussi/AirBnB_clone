@@ -1,0 +1,4 @@
+#!/bin/bash
+git add .
+git commit -m "i did the best i could"
+git push

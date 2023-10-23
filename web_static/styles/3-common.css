@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  color: #484848;
+  font-size: 14px;
+  font-family: Cicular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-bottom: 60px;
+  position: relative;
+}
